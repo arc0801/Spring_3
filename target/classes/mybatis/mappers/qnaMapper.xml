@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="qnaMapper">
+	<select id="qnaList" resultType="com.arc.s3.model.board.QnaVO" parameterType="com.arc.s3.util.RowMaker">
+		select * from 
+			(select N.*, rownum R from 
+				(select * from qna order by num desc) N) 
+		where R between #{startRow} and #{lastRow}
+	</select>
+	
+	<insert id="qnaInsert" parameterType="com.arc.s3.model.board.QnaVO">
+		insert into qna
+		values(board_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0, 0, 0, 0)
+	</insert>
+	
+	<select id="qnaCount" resultType="java.lang.Integer">
+		select count(num) from qna
+	</select>
+</mapper>  
