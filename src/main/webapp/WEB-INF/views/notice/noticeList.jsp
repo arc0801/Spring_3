@@ -30,6 +30,14 @@
 	    </tbody>
 	  </table>
 	  
+	  <div> <!-- 페이지번호 박스 -->
+	  	<ul class="pagination">
+	  		<c:forEach begin="1" end="${totalPage}" var="i">
+	  			<li><a href="./noticeList?curPage=${i}">${i}</a></li>
+	  		</c:forEach>
+	  	</ul>
+	  </div>
+	  
 	  <!-- session member, memberDTO -->
 	  <%-- <c:if test="${not empty sessionScope.member}"> --%>
 	  	<a href="noticeWrite" class="btn btn-info">Write</a>

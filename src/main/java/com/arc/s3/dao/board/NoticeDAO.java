@@ -18,12 +18,16 @@ public class NoticeDAO {
 	private SqlSession sqlSession;
 	private static final String NAMESPACE = "noticeMapper."; 
 	
+	public int noticeCount() throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"noticeCount");
+	}
+	
 	public int noticeUpdate(NoticeVO noticeVO) throws Exception {
 		return sqlSession.update(NAMESPACE+"noticeUpdate", noticeVO);
 	}
 	
-	public List<NoticeVO> noticeList() throws Exception {
-		return sqlSession.selectList(NAMESPACE+"noticeList");
+	public List<NoticeVO> noticeList(Map<String, Integer> map) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"noticeList", map);
 	}
 	
 	public NoticeVO noticeSelect(int num) throws Exception {
