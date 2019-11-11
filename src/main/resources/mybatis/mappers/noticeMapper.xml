@@ -12,10 +12,11 @@
 		update notice set title=#{title}, contents=#{contents} where num=#{num}
 	</select>
 	
-	<select id="noticeList" resultType="com.arc.s3.model.board.NoticeVO" parameterType="java.util.Map">
+	<select id="noticeList" resultType="com.arc.s3.model.board.NoticeVO" parameterType="com.arc.s3.util.RowMaker">
 		select * from 
 			(select N.*, rownum R from 
-				(select * from notice order by num desc) N) where R between #{startRow} and #{lastRow}
+				(select * from notice order by num desc) N) 
+		where R between #{startRow} and #{lastRow}
 	</select>
 	
 	<select id="noticeSelect" resultType="com.arc.s3.model.board.NoticeVO" parameterType="java.util.Map">

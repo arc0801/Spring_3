@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.arc.s3.dao.board.NoticeDAO;
 import com.arc.s3.model.board.NoticeVO;
+import com.arc.s3.util.Pager;
+import com.arc.s3.util.RowMaker;
 
 @Service
 public class NoticeService {
@@ -17,36 +19,11 @@ public class NoticeService {
 	@Inject
 	private NoticeDAO noticeDAO;
 	
-	public Map<String, Object> noticeList(int curPage) throws Exception {
-		int startRow = (curPage-1)*10 +1;
-		int lastRow = curPage*10;
+	public List<NoticeVO> noticeList(Pager pager) throws Exception {
+		RowMaker rowMaker = pager.makeRow();
+		pager.makePager(noticeDAO.noticeCount());
 		
-		Map<String , Integer> map = new HashMap<String, Integer>();
-		map.put("startRow", startRow);
-		map.put("lastRow", lastRow);
-		
-		////////////////////////////////////////////////////////////
-		//1. 총 글의 개수
-		int totalCount = noticeDAO.noticeCount();
-		
-		//2. totalPage 개수
-		int totalPage = totalCount/10;
-		if(totalCount%10 != 0) {
-			totalPage++;
-		}
-		
-		//3. totalBlock 개수
-		int totalBlock = totalPage/5;
-		if(totalBlock%5 != 0) {
-			totalBlock++;
-		}
-		
-		Map<String, Object> map2 = new HashMap<String, Object>();
-		map2.put("totalPage", totalPage);
-		map2.put("list", noticeDAO.noticeList(map));
-		map2.put("totalBlock", totalBlock);
-		
-		return map2;
+		return noticeDAO.noticeList(rowMaker);
 	}
 	
 	public NoticeVO noticeSelect(int num) throws Exception {
