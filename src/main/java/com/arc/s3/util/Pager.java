@@ -9,6 +9,25 @@ public class Pager {
 	private Integer curBlock;
 	private Integer totalBlock;
 	
+	private String kind;
+	private String search;
+	
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+	
 	public Pager() {
 		perPage = 10;
 	}
@@ -81,6 +100,9 @@ public class Pager {
 		RowMaker rowMaker = new RowMaker();
 		rowMaker.setStartRow(startRow);
 		rowMaker.setLastRow(lastRow);
+		rowMaker.setKind(this.getKind());
+		rowMaker.setSearch(this.getSearch());
+		
 		
 		return rowMaker;
 	}

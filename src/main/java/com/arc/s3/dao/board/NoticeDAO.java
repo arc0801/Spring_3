@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.arc.s3.model.board.NoticeVO;
+import com.arc.s3.util.Pager2;
 import com.arc.s3.util.RowMaker;
 
 @Repository
@@ -19,16 +20,16 @@ public class NoticeDAO {
 	private SqlSession sqlSession;
 	private static final String NAMESPACE = "noticeMapper."; 
 	
-	public int noticeCount() throws Exception {
-		return sqlSession.selectOne(NAMESPACE+"noticeCount");
+	public int noticeCount(Pager2 pager2) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"noticeCount", pager2);
 	}
 	
 	public int noticeUpdate(NoticeVO noticeVO) throws Exception {
 		return sqlSession.update(NAMESPACE+"noticeUpdate", noticeVO);
 	}
 	
-	public List<NoticeVO> noticeList(RowMaker rowMaker) throws Exception {
-		return sqlSession.selectList(NAMESPACE+"noticeList", rowMaker);
+	public List<NoticeVO> noticeList(Pager2 pager2) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"noticeList", pager2);
 	}
 	
 	public NoticeVO noticeSelect(int num) throws Exception {

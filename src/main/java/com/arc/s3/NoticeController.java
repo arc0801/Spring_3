@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.arc.s3.model.board.NoticeVO;
 import com.arc.s3.service.board.NoticeService;
 import com.arc.s3.util.Pager;
+import com.arc.s3.util.Pager2;
 
 @Controller
 @RequestMapping("/notice/**")
@@ -101,10 +102,10 @@ public class NoticeController {
 	//list : /notice/noticeList GET
 	//view : /WEB-INF/views/notice/noticeList.jsp
 	@RequestMapping("noticeList")
-	public void noticeList(Model model, Pager pager) throws Exception {
-		List<NoticeVO> ar = noticeService.noticeList(pager);
+	public void noticeList(Model model, Pager2 pager2) throws Exception {
+		List<NoticeVO> ar = noticeService.noticeList(pager2);
 		model.addAttribute("list", ar);
-		model.addAttribute("pager", pager);
+		model.addAttribute("pager", pager2);
 	}
 	
 }

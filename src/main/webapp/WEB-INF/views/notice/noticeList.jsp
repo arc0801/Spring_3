@@ -30,29 +30,45 @@
 	    </tbody>
 	  </table>
 	  
-	  <div> <!-- 페이지번호 박스 -->
-	  	<ul class="pagination">
-	  	<c:if test="${pager.curBlock gt 1}">
-	  		<li><a href="./noticeList?curPage=${pager.startNum-1}">이전</a></li>
-	  	</c:if>	
-	  		<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-	  			<li><a href="./noticeList?curPage=${i}">${i}</a></li>
-	  		</c:forEach>
-	  	<c:if test="${pager.curBlock lt pager.totalBlock }">
-	  		<li><a href="./noticeList?curPage=${pager.lastNum+1}">다음</a></li>
-	  	</c:if>	
-	  	</ul>
+	  <div class="page_box"> <!-- 페이지번호 박스 -->
+		  	<c:if test="${pager.curBlock gt 1}">
+		  		<span id="${pager.startNum-1}" class="list">이전</span>
+		  	</c:if>	
+		  		<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+		  			<span id="${i}" class="list">${i}</span>
+		  		</c:forEach>
+		  	<c:if test="${pager.curBlock lt pager.totalBlock }">
+		  		<span id="${pager.lastNum+1}" class="list">다음</span>
+		  	</c:if>	
 	  </div>
 	  
-	  <!-- session member, memberDTO -->
-	  <%-- <c:if test="${not empty sessionScope.member}"> --%>
 	  	<a href="noticeWrite" class="btn btn-info">Write</a>
-	  <%-- </c:if> --%>
+	  	
+	  	<div> <!-- 검색창 -->
+	  		<form id="frm" action="./noticeList">
+	  			<input type="hidden" id="curPage" value="1" name="curPage">
+	  			<select name="kind">
+	  				<option id="kt" value="kt">Title</option>
+	  				<option id="kw" value="kw">Writer</option>
+	  				<option id="kc" value="kc">Contents</option>
+	  			</select>
+	  			
+	  			<input type="text" name="search" value="${pager.search}">
+	  			<button>Search</button>
+	  		</form>
+	  	</div>
+	  	
 	</div>
-	
-	<%-- <img alt="" src="../resources/images/4.jpg">
-	<a href="./noticeSelect?n=33">Select One</a>
-	<a href="./noticeWrite">Notice Write</a>
-	<h1>${list}</h1> --%>
+	<script type="text/javascript">
+		var kind = '${pager.kind}';
+		if(kind == ''){
+			kind = "kt";
+		}
+		$("#"+kind).prop("selected", true);
+		$('.list').click(function() {
+			$('#curPage').val($(this).attr('id'));
+			$('#frm').submit();
+		});
+	</script>	
 </body>
 </html>

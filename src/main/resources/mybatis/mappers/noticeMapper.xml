@@ -4,8 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="noticeMapper"> <!-- ';' 쓰지마!!!!!!! -->
-	<select id="noticeCount" resultType="java.lang.Integer">
-		select count(num) from notice
+	<select id="noticeCount" resultType="java.lang.Integer" parameterType="com.arc.s3.util.Pager2">
+		select count(nvl(num,0)) from notice
+			<choose>
+				<when test="kind == 'kt'">where title like '%'||#{search}||'%'</when>
+				<when test="kind == 'kw'">where writer like '%'||#{search}||'%'</when>
+				<otherwise>where contents like '%'||#{search}||'%'</otherwise>
+			</choose>
 	</select>
 
 	<select id="noticeUpdate" parameterType="com.arc.s3.model.board.NoticeVO">
@@ -15,7 +20,13 @@
 	<select id="noticeList" resultType="com.arc.s3.model.board.NoticeVO" parameterType="com.arc.s3.util.RowMaker">
 		select * from 
 			(select N.*, rownum R from 
-				(select * from notice order by num desc) N) 
+				(select * from notice 
+					<choose>
+						<when test="kind == 'kt'">where title like '%'||#{search}||'%'</when>
+						<when test="kind == 'kw'">where writer like '%'||#{search}||'%'</when>
+						<otherwise>where contents like '%'||#{search}||'%'</otherwise>
+					</choose>
+				order by num desc) N) 
 		where R between #{startRow} and #{lastRow}
 	</select>
 	

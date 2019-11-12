@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.arc.s3.dao.board.NoticeDAO;
 import com.arc.s3.model.board.NoticeVO;
 import com.arc.s3.util.Pager;
+import com.arc.s3.util.Pager2;
 import com.arc.s3.util.RowMaker;
 
 @Service
@@ -19,11 +20,11 @@ public class NoticeService {
 	@Inject
 	private NoticeDAO noticeDAO;
 	
-	public List<NoticeVO> noticeList(Pager pager) throws Exception {
-		RowMaker rowMaker = pager.makeRow();
-		pager.makePager(noticeDAO.noticeCount());
+	public List<NoticeVO> noticeList(Pager2 pager2) throws Exception {
+		pager2.makeRow();
+		pager2.makePage(noticeDAO.noticeCount(pager2));
 		
-		return noticeDAO.noticeList(rowMaker);
+		return noticeDAO.noticeList(pager2);
 	}
 	
 	public NoticeVO noticeSelect(int num) throws Exception {
