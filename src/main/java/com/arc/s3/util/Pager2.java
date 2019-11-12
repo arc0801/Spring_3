@@ -19,11 +19,6 @@ public class Pager2 {
 	private Integer totalBlock; //전체 블럭 개수
 	//외부로 나갈 것들만 멤버변수로 선언. 그 외는 필요할 때 지역변수로 선언
 	
-	
-	
-	
-	//////////////////////////////////////////////////
-	
 	public String getKind() {
 		return kind;
 	}
@@ -109,17 +104,20 @@ public class Pager2 {
 		if(totalCount%this.getPerPage() != 0) {
 			totalPage++;
 		}
+
 		//3. totalBlock
 		int perBlock = 5;
 		totalBlock = totalPage/perBlock;
 		if(totalPage%perBlock != 0) {
 			totalBlock++;
 		}
+
 		//4. curPage로 curBlock 구하기
 		curBlock = this.getCurPage()/perBlock;
 		if(this.getCurPage()%perBlock !=0) {
 			curBlock++;
 		}
+		
 		//5. curBlock으로 startNum, lastNum
 		startNum = (curBlock-1)*perBlock +1;
 		lastNum = curBlock*perBlock;
@@ -127,5 +125,4 @@ public class Pager2 {
 			lastNum = totalPage;
 		}
 	}
-	
 }

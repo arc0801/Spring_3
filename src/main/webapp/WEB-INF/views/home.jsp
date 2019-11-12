@@ -3,12 +3,14 @@
 <html>
 <head>
 	<title>Home</title>
+<c:import url="./layout/bootStrap.jsp"></c:import>	
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
+<c:import url="./layout/nav.jsp" />
 
-<P>  The time on the server is ${serverTime}. </P>
+	<h1>
+		Hello world!
+	</h1>
+	
 </body>
 </html>
