@@ -5,6 +5,8 @@ public class Pager2 {
 	private Integer curPage; //현재 페이지 번호. client에게서 받아와야 함(parameter)
 	private Integer perPage; //불러올 페이지 개수. client에게서 받아와야 함(parameter)
 	// 두 개의 값이 안넘어올 경우가 있음
+	private String kind;
+	private String search;
 	
 	//DB
 	private Integer startRow; //시작 rownum
@@ -20,13 +22,23 @@ public class Pager2 {
 	
 	
 	
-	
 	//////////////////////////////////////////////////
-	public Integer getCurPage() {
-		if(curPage == null || curPage == 0) {
-			curPage = 1;
+	
+	public String getKind() {
+		return kind;
+	}
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+	public String getSearch() {
+		if(search == null) {
+			search = "";
 		}
-		return curPage;
+		return search;
+	}
+	public void setSearch(String search) {
+		//search = "%"+search+"%";
+		this.search = search;
 	}
 	public Integer getStartNum() {
 		return startNum;
@@ -54,6 +66,12 @@ public class Pager2 {
 	}
 	public void setCurPage(Integer curPage) {
 		this.curPage = curPage;
+	}
+	public Integer getCurPage() {
+		if(curPage == null || curPage == 0) {
+			curPage = 1;
+		}
+		return curPage;
 	}
 	public Integer getPerPage() {
 		if(perPage == null || perPage == 0) {
