@@ -19,7 +19,6 @@ public class Pager {
 		if(this.curPage == null) {
 			this.curPage = 1;
 		}
-		
 		return curPage;
 	}
 

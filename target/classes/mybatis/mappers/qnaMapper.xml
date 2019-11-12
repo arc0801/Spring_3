@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="qnaMapper">
-	<select id="qnaList" resultType="com.arc.s3.model.board.QnaVO" parameterType="com.arc.s3.util.RowMaker">
+	<select id="qnaList" resultType="com.arc.s3.model.board.QnaVO" parameterType="com.arc.s3.util.Pager2">
 		select * from 
-			(select N.*, rownum R from 
-				(select * from qna order by num desc) N) 
+			(select Q.*, rownum R from 
+				(select * from qna order by num desc) Q) 
 		where R between #{startRow} and #{lastRow}
 	</select>
 	
@@ -17,6 +17,6 @@
 	</insert>
 	
 	<select id="qnaCount" resultType="java.lang.Integer">
-		select count(num) from qna
+		select count(nvl(num, 0)) from qna
 	</select>
 </mapper>  
