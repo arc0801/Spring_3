@@ -4,6 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="qnaMapper">
+	
+	<update id="qnaReplyUpdate" parameterType="com.arc.s3.model.board.QnaVO">
+		update qna set step = step+1
+		where ref = #{ref} and step > #{step}
+	</update>
+	
+	<insert id="qnaReply" parameterType="com.arc.s3.model.board.QnaVO">
+		insert into qna
+		values(board_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0, #{ref}, #{step}, #{depth})
+	</insert>
+	
+	<select id="qnaSelect" parameterType="java.lang.Integer" resultType="com.arc.s3.model.board.QnaVO">
+		select * from qna where num=#{num}
+	</select>
+	
+	<insert id="qnaWrite" parameterType="com.arc.s3.model.board.QnaVO">
+		insert into qna
+		values(board_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0, board_seq.currval, 0, 0)
+	</insert>
+	
 	<select id="qnaList" resultType="com.arc.s3.model.board.QnaVO" parameterType="com.arc.s3.util.Pager2">
 		select * from 
 			(select Q.*, rownum R from 
@@ -19,14 +39,9 @@
 							where contents like '%'||#{search}||'%'
 						</otherwise>
 					</choose>
-				 order by num desc) Q) 
+				 order by ref desc, step asc) Q) 
 		where R between #{startRow} and #{lastRow}
 	</select>
-	
-	<insert id="qnaInsert" parameterType="com.arc.s3.model.board.QnaVO">
-		insert into qna
-		values(board_seq.nextval, #{title}, #{writer}, #{contents}, sysdate, 0, 0, 0, 0)
-	</insert>
 	
 	<select id="qnaCount" resultType="java.lang.Integer" parameterType="com.arc.s3.util.Pager2">
 		select count(nvl(num, 0)) from qna 

@@ -11,9 +11,9 @@
 <body>
 <c:import url="../layout/nav.jsp" />
 	<div class="container">
-	  <h2>QnA Write Form</h2>
-	  <form action="qnaWrite" method="post">
-	  	
+	  <h2>QnA Reply Form</h2>
+	  <form action="qnaReply" method="post">
+	  	<input type="hidden" name="num" value="${num}">
 	    <div class="form-group">
 	      <label for="title">Title:</label>
 	      <input type="text" class="form-control" id="title" placeholder="Enter title" name="title">

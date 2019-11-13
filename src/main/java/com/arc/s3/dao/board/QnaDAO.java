@@ -20,12 +20,24 @@ public class QnaDAO {
 	private static final String NAMESPACE = "qnaMapper.";
 	//계속 qnaMapper에서 가져올거니까 멤버변수로 선언해준다.
 	
+	public int qnaReplyUpdate(QnaVO qnaVO) throws Exception {
+		return sqlSession.update(NAMESPACE+"qnaReplyUpdate", qnaVO);
+	}
+	
+	public int qnaReply(QnaVO qnaVO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"qnaReply", qnaVO);
+	}
+	
+	public QnaVO qnaSelect(int num) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"qnaSelect", num);
+	}
+	
 	public List<QnaVO> qnaList(Pager2 pager2) throws Exception {
 		return sqlSession.selectList(NAMESPACE+"qnaList", pager2);
 	}
 	
-	public int qnaInsert(QnaVO qnaVO) throws Exception {
-		return sqlSession.insert(NAMESPACE+"qnaInsert", qnaVO);
+	public int qnaWrite(QnaVO qnaVO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"qnaWrite", qnaVO);
 	}
 	
 	public int qnaCount(Pager2 pager2) throws Exception {
