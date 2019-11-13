@@ -9,6 +9,7 @@
 <c:import url="../layout/bootStrap.jsp" />
 </head>
 <body>
+<c:import url="../layout/nav.jsp" />
 	<div>
 		<form id="frm" action="./qnaList">
 			<input type="hidden" id="curPage" value="1" name="curPage">

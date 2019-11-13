@@ -11,7 +11,7 @@
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Point <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="${pageContext.request.contextPath}/point/pointList.jsp">PointList</a></li>
-          <li><a href="#">Page 1-2</a></li>
+          <li><a href="${pageContext.request.contextPath}/qna/qnaList">QnA</a></li>
           <li><a href="#">Page 1-3</a></li>
         </ul>
       </li>
